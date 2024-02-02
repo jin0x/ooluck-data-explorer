@@ -95,6 +95,18 @@ def render_html(sentences):
 	return html_template + html_body.format(list_items=list_items)
 
 
+def add_email_to_verified_emails(email):
+	ses_client = boto3.client(
+		'ses',
+		region_name=aws_region,
+		aws_access_key_id=aws_access_key_id,
+		aws_secret_access_key=aws_secret_access_key
+	)
+	try:
+		ses_client.verify_email_identity(EmailAddress=email)
+		return True
+	except Exception as e:
+		return False
 # Main app function
 def main():
 	st.set_page_config(page_title="Ooluck - Data Explorer", page_icon="favicon.ico", layout='wide',
@@ -117,7 +129,7 @@ def main():
 	else:
 		st.write("No results found based on the filters.")
 
-	email_address = st.text_input("Enter your email address to receive the daily feed")
+	email_address = st.text_input("Enter your email address")
 
 	if st.button("Send Daily Feed") and email_address:
 		# Select random 10 items from the data, adjust this logic to your dataset structure
@@ -129,6 +141,12 @@ def main():
 		to_emails = [email_address]
 		send_html_email(subject, html_content, from_email, to_emails)
 		st.success("Email sent successfully!")
+
+	if st.button("Register Email"):
+		if add_email_to_verified_emails(email_address):
+			st.success("Registration email is sent successfully! Please look at your email.")
+		else:
+			st.error("Error adding email. Please try again.")
 
 if __name__ == '__main__':
 	main()
