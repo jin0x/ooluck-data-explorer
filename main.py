@@ -131,6 +131,13 @@ def main():
 
 	email_address = st.text_input("Enter your email address")
 
+
+	if st.button("Register Email"):
+		if add_email_to_verified_emails(email_address):
+			st.success("Registration email is sent successfully! Please look at your email.")
+		else:
+			st.error("Error adding email. Please try again.")
+
 	if st.button("Send Daily Feed") and email_address:
 		# Select random 10 items from the data, adjust this logic to your dataset structure
 		selected_items = filtered_data.sample(n=min(10, len(filtered_data))).to_dict('records')  # Convert to list of dicts
@@ -142,11 +149,6 @@ def main():
 		send_html_email(subject, html_content, from_email, to_emails)
 		st.success("Email sent successfully!")
 
-	if st.button("Register Email"):
-		if add_email_to_verified_emails(email_address):
-			st.success("Registration email is sent successfully! Please look at your email.")
-		else:
-			st.error("Error adding email. Please try again.")
 
 if __name__ == '__main__':
 	main()
