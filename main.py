@@ -97,11 +97,11 @@ def render_html(sentences):
 
 # Main app function
 def main():
-	st.set_page_config(page_title="Oolack - Data Explorer", page_icon="favicon.ico", layout='wide',
+	st.set_page_config(page_title="Ooluck - Data Explorer", page_icon="favicon.ico", layout='wide',
 	                   initial_sidebar_state='auto')
 
 
-	st.title('Oolack - Data Explorer')
+	st.title('Ooluck - Data Explorer')
 
 	data = load_data()
 
