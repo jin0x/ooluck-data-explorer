@@ -11,14 +11,14 @@ def load_data():
 # Main app function
 def main():
 	st.set_page_config(
-		page_title="Oolack - Data Exploration App",
+		page_title="Oolack - Data Explorer",
 		page_icon="favicon.ico",
 		layout='wide',  # Optional: Use 'wide' or 'centered' for your app layout
 		initial_sidebar_state='auto'  # Optional: Use 'auto', 'expanded', 'collapsed'
 	)
 
 	# Title
-	st.title('Oolack - Data Exploration App')
+	st.title('Oolack - Data Explorer')
 
 
 	data = load_data()
